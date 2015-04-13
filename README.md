@@ -23,7 +23,7 @@ The inputs for the code are:
   
 -  [ Need normalization or not ] If T is specified, median-by-ratio normalization will be performed prior to PCA analysis
   
--  [OutputName] Need to be XX.pdf
+-  [OutputName] Need to be XX.pdf. The pdf width and height will be automatically adjusted based on # genes and # samples
 
 If the last input is specified, the heatmap will be output as a pdf file.
 Otherwise it will be shown in console.
