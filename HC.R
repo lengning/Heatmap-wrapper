@@ -54,9 +54,12 @@ else Mat=GetNormalizedMat(Mat, MedianNorm(Mat))
 sc="none"
 if(Scale)sc="row"
 
-if(!is.null(Out))pdf(Out)
+Nrow=nrow(Mat)
+Ncol=ncol(Mat)
+
+if(!is.null(Out))pdf(Out,width=max(Ncol/4,4),height=max(Nrow/5,4))
 tmp=heatmap.2(Mat,trace="none",Rowv=Rowhc,
-										Colv=Colhc,scale=sc,
+										Colv=Colhc,scale=sc,#keysize=max(4/Nrow,.5),
 															col=greenred)#,margins=c(11,11))
 if(!is.null(Out))dev.off()
 
