@@ -21,7 +21,7 @@ The inputs for the code are:
   
 -  [Lower limit of detection] Genes with max expression below this threshold will be removed.
   
--  [ Need normalization or not ] If T is specified, median-by-ratio normalization will be performed prior to PCA analysis
+-  [Need normalization or not] If T is specified, median-by-ratio normalization will be performed prior to PCA analysis
   
 -  [OutputName] Need to be XX.pdf. The pdf width and height will be automatically adjusted based on # genes and # samples
 
