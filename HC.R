@@ -59,8 +59,8 @@ Ncol=ncol(Mat)
 
 if(!is.null(Out))pdf(Out,width=max(Ncol/4,4),height=max(Nrow/5,4))
 tmp=heatmap.2(Mat,trace="none",Rowv=Rowhc,
-										Colv=Colhc,scale=sc,#keysize=max(4/Nrow,.5),
-															col=greenred)#,margins=c(11,11))
+			Colv=Colhc,scale=sc,#keysize=max(4/Nrow,.5),
+				col=greenred,margins=c(7,7))
 if(!is.null(Out))dev.off()
 
 if(is.null(Out))Sys.sleep(1e30)
