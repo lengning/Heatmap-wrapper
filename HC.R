@@ -1,7 +1,7 @@
 X11()
 # Input:
 # [FileNameIn] [Whether cluster by rows T/F] [Whether cluster by columns T/F] [Whether scale data within a row T/F] 
-# [Lower limit of detection] [ Need normalization or not ] [OutputName]
+# [Lower limit of detection] [ Need normalization or not ] [OutputName] [bottom margin] [right margin]
 
 library(gplots)
 options=commandArgs(trailingOnly = TRUE)
@@ -13,8 +13,13 @@ Scale=as.logical(options[4])
 LOD=as.numeric(options[5]) # lower limit of detection
 Norm=as.logical(options[6]) # whether perform normalization; if "T" is specified, median-by-ratio normalization will be performed.
 Out=options[7]
+Margin1=as.numeric(options[8]) # margin - bottom
+Margin2=as.numeric(options[9]) # margin - right
 
 if(length(options)<7)Out=NULL
+if(length(options)<8)Margin1=7
+if(length(options)<9)Margin2=7
+
 
 # csv or txt
 tmp=strsplit(File, split="\\.")[[1]]
@@ -60,7 +65,7 @@ Ncol=ncol(Mat)
 if(!is.null(Out))pdf(Out,width=max(Ncol/4,4),height=max(Nrow/5,4))
 tmp=heatmap.2(Mat,trace="none",Rowv=Rowhc,
 			Colv=Colhc,scale=sc,#keysize=max(4/Nrow,.5),
-				col=greenred,margins=c(7,7))
+				col=greenred,margins=c(Margin1,Margin2))
 if(!is.null(Out))dev.off()
 
 if(is.null(Out))Sys.sleep(1e30)
