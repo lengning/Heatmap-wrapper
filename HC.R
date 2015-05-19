@@ -2,6 +2,7 @@ X11()
 # Input:
 # [FileNameIn] [Whether cluster by rows T/F] [Whether cluster by columns T/F] [Whether scale data within a row T/F] 
 # [Lower limit of detection] [ Need normalization or not ] [OutputName] [bottom margin] [right margin]
+# [pdf height] [pdf width] 
 
 library(gplots)
 options=commandArgs(trailingOnly = TRUE)
@@ -15,10 +16,14 @@ Norm=as.logical(options[6]) # whether perform normalization; if "T" is specified
 Out=options[7]
 Margin1=as.numeric(options[8]) # margin - bottom
 Margin2=as.numeric(options[9]) # margin - right
+Height=as.numeric(options[10]) # pdf height
+Width=as.numeric(options[11]) # pdf width
 
 if(length(options)<7)Out=NULL
 if(length(options)<8)Margin1=7
 if(length(options)<9)Margin2=7
+if(length(options)<10) Height=NULL
+if(length(options)<11) Width=NULL
 
 
 # csv or txt
@@ -61,8 +66,10 @@ if(Scale)sc="row"
 
 Nrow=nrow(Mat)
 Ncol=ncol(Mat)
+if(is.null(Height)) Height=max(Nrow/5,4)
+if(is.null(Width)) Width=max(Ncol/4,4)
 
-if(!is.null(Out))pdf(Out,width=max(Ncol/4,4),height=max(Nrow/5,4))
+if(!is.null(Out))pdf(Out,width=Width,height=Height)
 tmp=heatmap.2(Mat,trace="none",Rowv=Rowhc,
 			Colv=Colhc,scale=sc,#keysize=max(4/Nrow,.5),
 				col=greenred,margins=c(Margin1,Margin2))
