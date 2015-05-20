@@ -66,8 +66,8 @@ if(Scale)sc="row"
 
 Nrow=nrow(Mat)
 Ncol=ncol(Mat)
-if(is.null(Height)) Height=max(Nrow/5,4)
-if(is.null(Width)) Width=max(Ncol/4,4)
+if(is.null(Height)) Height=max(Nrow/5,4)+Margin1-7
+if(is.null(Width)) Width=max(Ncol/4,4)+Margin2-7
 
 if(!is.null(Out))pdf(Out,width=Width,height=Height)
 tmp=heatmap.2(Mat,trace="none",Rowv=Rowhc,
