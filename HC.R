@@ -38,7 +38,7 @@ if(FileType=="csv"){
 if(FileType!="csv"){
 	cat("\n Read in tab delimited file \n")
 	prefix=strsplit(File,split=paste0("\\.",FileType))[[1]][1]
-	In=read.table(File,stringsAsFactors=F, sep="\t",header=T,row.names=1)
+	In=read.table(File,stringsAsFactors=F, sep="\t",header=T,row.names=1,quote="\"")
 }
 
 
