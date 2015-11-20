@@ -13,18 +13,18 @@ Scale=as.logical(options[4])
 LOD=as.numeric(options[5]) # lower limit of detection
 Norm=as.logical(options[6]) # whether perform normalization; if "T" is specified, median-by-ratio normalization will be performed.
 Out=options[7]
-Margin1=as.numeric(options[8]) # margin - bottom
-Margin2=as.numeric(options[9]) # margin - right
-Height=as.numeric(options[10]) # pdf height
-Width=as.numeric(options[11]) # pdf width
-Plot=options[12] # whether plot
+Margin1=as.numeric(options[9]) # margin - bottom
+Margin2=as.numeric(options[10]) # margin - right
+Height=as.numeric(options[11]) # pdf height
+Width=as.numeric(options[12]) # pdf width
+Plot=options[8] # whether plot
 
 if(length(options)<7)Out=NULL
-if(length(options)<8)Margin1=7
-if(length(options)<9)Margin2=7
-if(length(options)<10) Height=NULL
-if(length(options)<11) Width=NULL
-if(length(options)<12)Plot="T"
+if(length(options)<9)Margin1=7
+if(length(options)<10)Margin2=7
+if(length(options)<11) Height=NULL
+if(length(options)<12) Width=NULL
+if(length(options)<8)Plot="T"
 
 if(Plot=="T") X11()
 
