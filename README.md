@@ -11,12 +11,12 @@ Rscript HC.R PCA_example.csv T T T 5 T
 
 or
 
-Rscript HC.R PCA_example.csv T T T 5 T HCout.pdf 3 10 15 8
+Rscript HC.R PCA_example.csv T T T 5 T HCout.pdf F
 
 
 or
 
-Rscript HC.R PCA_example.csv T T T 5 T HCout.pdf 3 10 15 8 F
+Rscript HC.R PCA_example.csv T T T 5 T HCout.pdf F 3 10 15 8 
 
 
 The inputs for the code are:
@@ -35,11 +35,13 @@ The inputs for the code are:
   
 -  [OutputName] Need to be XX.pdf. The pdf width and height will be automatically adjusted based on # genes and # samples
 
+-  [X11 activation] Default is T. If it is specified as F, X11 will be disactived
+
 -  [bottom margin] [right margin] Two numbers to define margin width. Default is 7 for both parameters.
   
 -  [pdf height] [pdf width] Two numbers to define pdf height and width. Default height is #rows/5; default width is #column/4.
 
--  [X11 activation] Default is T. If it is specified as F, X11 will be disactived.
+.
 
 
 If the last input is specified, the heatmap will be output as a pdf file.
