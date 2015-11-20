@@ -13,6 +13,12 @@ or
 
 Rscript HC.R PCA_example.csv T T T 5 T HCout.pdf 3 10 15 8
 
+
+or
+
+Rscript HC.R PCA_example.csv T T T 5 T HCout.pdf 3 10 15 8 F
+
+
 The inputs for the code are:
 
 -  [FileNameIn] can take .csv, .txt or .tab
@@ -32,6 +38,9 @@ The inputs for the code are:
 -  [bottom margin] [right margin] Two numbers to define margin width. Default is 7 for both parameters.
   
 -  [pdf height] [pdf width] Two numbers to define pdf height and width. Default height is #rows/5; default width is #column/4.
+
+-  [X11 activation] Default is T. If it is specified as F, X11 will be disactived.
+
 
 If the last input is specified, the heatmap will be output as a pdf file.
 Otherwise it will be shown in console.
