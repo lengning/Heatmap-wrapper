@@ -3,21 +3,27 @@
 Codes to generate heatmap, along with a example data set.
 Example to run the code (from command line):
 
-Rscript HC.R PCA_example.csv T T T 5 T HCout.pdf
+Rscript HC.R PCA_example.csv T T T 5 T F HCout.pdf
 
 or
 
-Rscript HC.R PCA_example.csv T T T 5 T
+Rscript HC.R PCA_example.csv T T T 5 T F
 
 or
 
-Rscript HC.R PCA_example.csv T T T 5 T HCout.pdf F
-
+Rscript HC.R PCA_example.csv T T T 5 T F HCout.pdf NULL NULL F
 
 or
 
-Rscript HC.R PCA_example.csv T T T 5 T HCout.pdf F 3 10 15 8 
+Rscript HC.R PCA_example.csv T T T 5 T F HCout.pdf NULL NULL F 3 10 15 8 
 
+or (To see heatmap by WaveCrestENI recovered cell order)
+
+Rscript HC.R WC_example.csv T F T 5 T T HCout.pdf GeneList.csv Condition.csv 
+
+or (To see heatmap by WaveCrestENI recovered cell order)
+
+Rscript HC.R WC_example.csv T F T 5 T T HCout.pdf GeneList.csv Condition.csv T 3 10 15 8
 
 The inputs for the code are:
 
@@ -33,7 +39,13 @@ The inputs for the code are:
   
 -  [Need normalization or not] If T is specified, median-by-ratio normalization will be performed prior to PCA analysis
   
+-  [Whether plot heatmap by reordered cells by WaveCrestENI] If T is specified, WaveCrestENI will be performed prior
+
 -  [OutputName] Need to be XX.pdf. The pdf width and height will be automatically adjusted based on # genes and # samples
+
+-  [FileNameIn] can take .csv, .txt or .tab for WaveCrestENI (list of key markers) 
+  
+-  [FileNameIn] can take .csv, .txt or .tab for WaveCrestENI (condition of cells)
 
 -  [X11 activation] Default is T. If it is specified as F, X11 will be disactived
 
