@@ -1,7 +1,9 @@
 # Input:
 # [FileNameIn] [Whether cluster by rows T/F] [Whether cluster by columns T/F] [Whether scale data within a row T/F] 
-# [Lower limit of detection] [ Need normalization or not ] [OutputName] [bottom margin] [right margin]
-# [pdf height] [pdf width] [whether active X11]
+# [Lower limit of detection] [Need normalization or not] [Plot columns by WaveCrestENI order or not] 
+# [FileNameIn: list for key markers for WaveCrestENI] [FileNameIn: cell condition for WaveCrestENI] [whether active X11]
+# [OutputName] [bottom margin] [right margin]
+# [pdf height] [pdf width]
 
 library(gplots)
 options=commandArgs(trailingOnly = TRUE)
