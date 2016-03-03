@@ -15,7 +15,7 @@ Scale=as.logical(options[4])
 LOD=as.numeric(options[5]) # lower limit of detection
 Norm=as.logical(options[6]) # whether perform normalization; if "T" is specified, median-by-ratio normalization will be performed.
 
-WCRun=as.logical(options[7])
+RunWaveCrest=as.logical(options[7])
 Out=options[8]
 WCGeneList = options[9]
 WCCond = options[10]
@@ -25,15 +25,16 @@ Margin2=as.numeric(options[13]) # margin - right
 Height=as.numeric(options[14]) # pdf height
 Width=as.numeric(options[15]) # pdf width
 
-if(length(options)<8)Out=NULL
-if(length(options)<11)Plot="T"
-if(length(options)<12)Margin1=7
-if(length(options)<13)Margin2=7
+if(length(options)<8) {Out=WCGeneList=WCCond=NULL}
+if(length(options)<9) {WCGeneList=WCCond=NULL}
+if(length(options)<11) Plot="T"
+if(length(options)<12) Margin1=7
+if(length(options)<13) Margin2=7
 if(length(options)<14) Height=NULL
 if(length(options)<15) Width=NULL
 
-if(WCRun) Colhc=FALSE	
-if(!WCRun) {WCGeneList=WCCond=NULL}
+if(RunWaveCrest) Colhc=FALSE	
+if(!RunWaveCrest) {WCGeneList=WCCond=NULL}
 if(Plot=="T") X11()
 
 # csv or txt
@@ -53,7 +54,11 @@ if(FileType!="csv"){
 
 
 # csv or txt
-if(WCRun){
+if(RunWaveCrest & is.null(WCGeneList) & is.null(WCCond)){
+  GeneList = rownames(In)
+  Cond = rep(1,dim(In)[2])
+}
+if(RunWaveCrest & !is.null(WCGeneList) & !is.null(WCCond)){
 	tmp1=strsplit(WCGeneList, split="\\.")[[1]]
 	FileType1=tmp1[length(tmp1)]
 	tmp2=strsplit(WCCond, split="\\.")[[1]]
@@ -62,16 +67,18 @@ if(WCRun){
 	if(FileType1=="csv"&FileType2=="csv"){
 		cat("\n Read in csv file \n")
 		prefix=strsplit(WCGeneList,split="\\.csv")[[1]][1]
-		GeneList=read.csv(WCGeneList,stringsAsFactors=F)
+		GeneList=read.csv(WCGeneList,stringsAsFactors=F)[[1]]
+                if(length( which(!GeneList %in% rownames(In)))>0 ){print("Warning: not all provided markers are in data matrix")} 
+                GeneList = GeneList[which(GeneList %in% rownames(In))]
 		prefix=strsplit(WCCond,split="\\.csv")[[1]][1]
-		Cond=read.csv(WCCond,stringsAsFactors=F)
+		Cond=read.csv(WCCond,stringsAsFactors=F)[[1]]
 	}
 	if(FileType1!="csv"&FileType2!="csv"){
 		cat("\n Read in tab delimited file \n")
 		prefix=strsplit(WCGeneList,split=paste0("\\.",FileType1))[[1]][1]
-		GeneList=read.table(WCGeneList,stringsAsFactors=F, sep="\t",header=T,row.names=1,quote="\"")
+		GeneList=read.table(WCGeneList,stringsAsFactors=F, sep="\t",header=T,row.names=1,quote="\"")[[1]]
 		prefix=strsplit(WCCond,split=paste0("\\.",FileType2))[[1]][1]
-		Cond=read.table(WCCond,stringsAsFactors=F, sep="\t",header=T,row.names=1,quote="\"")
+		Cond=read.table(WCCond,stringsAsFactors=F, sep="\t",header=T,row.names=1,quote="\"")[[1]]
 	}	
 }
 
@@ -85,7 +92,7 @@ print(paste(length(WhichRM),"genes with max expression < ", LOD, "are removed"))
 Mat=Matraw
 if(length(WhichRM)>0)Mat=Matraw[-WhichRM,]
 print(str(Mat))
-if(WCRun) {GeneL = as.factor(GeneList[[1]]);condition = as.factor(Cond[[1]]);print(str(GeneL));print(str(condition))}
+if(RunWaveCrest) {GeneL = as.factor(GeneList);condition = as.factor(Cond);print(str(GeneL));print(str(condition))}
 
 if(Norm){
 cat("\n ==== Performing normalization ==== \n")
@@ -102,7 +109,7 @@ Nrow=nrow(Mat)
 Ncol=ncol(Mat)
 if(is.null(Height)) Height=max(Nrow/5,4)+Margin1-7
 if(is.null(Width)) Width=max(Ncol/4,4)+Margin2-7
-if(WCRun){
+if(RunWaveCrest){
 	library(WaveCrest)
 	Colhc=FALSE
 	ENIRes = WaveCrestENI(GeneL,Mat,condition)
@@ -116,5 +123,4 @@ if(Plot=="T" | (!is.null(Out)))tmp=heatmap.2(Mat,trace="none",Rowv=Rowhc,
 if(!is.null(Out))dev.off()
 
 if(is.null(Out) & Plot=="T")Sys.sleep(1e30)
-
 
