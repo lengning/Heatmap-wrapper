@@ -25,6 +25,10 @@ Margin2=as.numeric(options[13]) # margin - right
 Height=as.numeric(options[14]) # pdf height
 Width=as.numeric(options[15]) # pdf width
 
+if(length(options) >9){ 
+if(WCGeneList=="NULL") {WCGeneList=NULL}
+if(WCCond=="NULL") {WCCond=NULL}
+}
 if(length(options)<8) {Out=WCGeneList=WCCond=NULL}
 if(length(options)<9) {WCGeneList=WCCond=NULL}
 if(length(options)<11) Plot="T"
@@ -35,6 +39,7 @@ if(length(options)<15) Width=NULL
 
 if(RunWaveCrest) Colhc=FALSE	
 if(!RunWaveCrest) {WCGeneList=WCCond=NULL}
+
 if(Plot=="T") X11()
 
 # csv or txt
@@ -52,37 +57,6 @@ if(FileType!="csv"){
 	In=read.table(File,stringsAsFactors=F, sep="\t",header=T,row.names=1,quote="\"")
 }
 
-
-# csv or txt
-if(RunWaveCrest & is.null(WCGeneList) & is.null(WCCond)){
-  GeneList = rownames(In)
-  Cond = rep(1,dim(In)[2])
-}
-if(RunWaveCrest & !is.null(WCGeneList) & !is.null(WCCond)){
-	tmp1=strsplit(WCGeneList, split="\\.")[[1]]
-	FileType1=tmp1[length(tmp1)]
-	tmp2=strsplit(WCCond, split="\\.")[[1]]
-	FileType2=tmp2[length(tmp2)]
-
-	if(FileType1=="csv"&FileType2=="csv"){
-		cat("\n Read in csv file \n")
-		prefix=strsplit(WCGeneList,split="\\.csv")[[1]][1]
-		GeneList=read.csv(WCGeneList,stringsAsFactors=F)[[1]]
-                if(length( which(!GeneList %in% rownames(In)))>0 ){print("Warning: not all provided markers are in data matrix")} 
-                GeneList = GeneList[which(GeneList %in% rownames(In))]
-		prefix=strsplit(WCCond,split="\\.csv")[[1]][1]
-		Cond=read.csv(WCCond,stringsAsFactors=F)[[1]]
-	}
-	if(FileType1!="csv"&FileType2!="csv"){
-		cat("\n Read in tab delimited file \n")
-		prefix=strsplit(WCGeneList,split=paste0("\\.",FileType1))[[1]][1]
-		GeneList=read.table(WCGeneList,stringsAsFactors=F, sep="\t",header=T,row.names=1,quote="\"")[[1]]
-		prefix=strsplit(WCCond,split=paste0("\\.",FileType2))[[1]][1]
-		Cond=read.table(WCCond,stringsAsFactors=F, sep="\t",header=T,row.names=1,quote="\"")[[1]]
-	}	
-}
-
-
 Matraw=data.matrix(In)
 
 Max=apply(Matraw,1,max)
@@ -92,7 +66,7 @@ print(paste(length(WhichRM),"genes with max expression < ", LOD, "are removed"))
 Mat=Matraw
 if(length(WhichRM)>0)Mat=Matraw[-WhichRM,]
 print(str(Mat))
-if(RunWaveCrest) {GeneL = as.factor(GeneList);condition = as.factor(Cond);print(str(GeneL));print(str(condition))}
+
 
 if(Norm){
 cat("\n ==== Performing normalization ==== \n")
@@ -101,6 +75,43 @@ Sizes=MedianNorm(Mat)
 if(is.na(Sizes[1]))cat("\n Warning: all genes have 0(s), normalization is not performed \n")
 else Mat=GetNormalizedMat(Mat, MedianNorm(Mat))
 }
+
+# csv or txt
+if(RunWaveCrest & is.null(WCGeneList) & is.null(WCCond)){
+  GeneL = rownames(Mat)
+  Cond = rep(1,dim(Mat)[2])
+}
+
+if(RunWaveCrest & !is.null(WCGeneList) & !is.null(WCCond)){
+
+	tmp1=strsplit(WCGeneList, split="\\.")[[1]]
+	FileType1=tmp1[length(tmp1)]
+	tmp2=strsplit(WCCond, split="\\.")[[1]]
+	FileType2=tmp2[length(tmp2)]
+
+	if(FileType1=="csv"&FileType2=="csv"){
+		cat("\n Read in csv file \n")
+		prefix=strsplit(WCGeneList,split="\\.csv")[[1]][1]
+		GeneList=read.csv(WCGeneList,stringsAsFactors=F)[[1]]
+                if(length( which(!GeneList %in% rownames(Mat)))>0 ){print("Warning: not all provided markers are in data matrix")} 
+                GeneL = GeneList[which(GeneList %in% rownames(Mat))]
+		prefix=strsplit(WCCond,split="\\.csv")[[1]][1]
+		Cond=read.csv(WCCond,stringsAsFactors=F)[[1]]
+	}
+	if(FileType1!="csv"&FileType2!="csv"){
+		cat("\n Read in tab delimited file \n")
+		prefix=strsplit(WCGeneList,split=paste0("\\.",FileType1))[[1]][1]
+		GeneList=read.table(WCGeneList,stringsAsFactors=F, sep="\t",header=T,quote="\"")[[1]]
+                if(length( which(!GeneList %in% rownames(Mat)))>0 ){print("Warning: not all provided markers are in data matrix")} 
+                GeneL = GeneList[which(GeneList %in% rownames(Mat))]
+		prefix=strsplit(WCCond,split=paste0("\\.",FileType2))[[1]][1]
+		Cond=read.table(WCCond,stringsAsFactors=F, sep="\t",header=T,quote="\"")[[1]]
+	}	
+}
+
+
+
+if(RunWaveCrest) {GeneL = as.factor(GeneL);condition = as.factor(Cond);print(str(GeneL));print(str(condition))}
 
 sc="none"
 if(Scale)sc="row"
@@ -123,4 +134,5 @@ if(Plot=="T" | (!is.null(Out)))tmp=heatmap.2(Mat,trace="none",Rowv=Rowhc,
 if(!is.null(Out))dev.off()
 
 if(is.null(Out) & Plot=="T")Sys.sleep(1e30)
+
 
