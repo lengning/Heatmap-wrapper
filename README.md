@@ -3,7 +3,7 @@
 Codes to generate heatmap, along with a example data set.
 Example to run the code (from command line):
 
-Rscript HC.R PCA_example.csv T T T 5 T F HCout.pdf
+Rscript HC.R PCA_example.csv T T T 5 T F Out.pdf
 
 or
 
@@ -11,23 +11,25 @@ Rscript HC.R PCA_example.csv T T T 5 T F
 
 or
 
-Rscript HC.R PCA_example.csv T T T 5 T F HCout.pdf NULL NULL F
+Rscript HC.R PCA_example.csv T T T 5 T F Out.pdf NULL NULL F
 
 or
 
-Rscript HC.R PCA_example.csv T T T 5 T F HCout.pdf NULL NULL F 3 10 15 8 
+Rscript HC.R PCA_example.csv T T T 5 T F Out.pdf NULL NULL F 3 10 15 8 
 
 or (To see heatmap by WaveCrestENI recovered cell order)
 
-Rscript HC.R WC_example.csv T F T 5 T T HCout.pdf NULL NULL
+Rscript HC.R WC_example.csv T F T 5 T T Out.pdf NULL NULL
 
 or (To see heatmap by WaveCrestENI recovered cell order)
 
-Rscript HC.R WC_example.csv T F T 5 T T HCout.pdf GeneList.csv Condition.csv 
+Rscript HC.R WC_example.csv T F T 5 T T Out.pdf GeneList.csv Condition.csv
+Rscript HC.R WC_example.txt T F T 5 T T Out.pdf GeneList.txt Condition.txt
 
 or (To see heatmap by WaveCrestENI recovered cell order)
 
-Rscript HC.R WC_example.csv T F T 5 T T HCout.pdf GeneList.csv Condition.csv T 3 10 15 8
+Rscript HC.R WC_example.csv T F T 5 T T Out.pdf GeneList.csv Condition.csv T 3 10 15 8
+Rscript HC.R WC_example.txt T F T 5 T T Out.pdf GeneList.txt Condition.txt T 3 10 15 8
 
 The inputs for the code are:
 
