@@ -110,7 +110,7 @@ if(RunWaveCrest & !is.null(WCGeneList) & !is.null(WCCond)){
 }
 
 
-
+if(length(Cond) != dim(Mat)[2]) {"Stop: number of cells are not matching to Condition file"}
 if(RunWaveCrest) {GeneL = as.factor(GeneL);condition = as.factor(Cond);print(str(GeneL));print(str(condition))}
 
 sc="none"
@@ -134,5 +134,4 @@ if(Plot=="T" | (!is.null(Out)))tmp=heatmap.2(Mat,trace="none",Rowv=Rowhc,
 if(!is.null(Out))dev.off()
 
 if(is.null(Out) & Plot=="T")Sys.sleep(1e30)
-
 
