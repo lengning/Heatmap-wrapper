@@ -107,10 +107,10 @@ if(RunWaveCrest & !is.null(WCGeneList) & !is.null(WCCond)){
 		prefix=strsplit(WCCond,split=paste0("\\.",FileType2))[[1]][1]
 		Cond=read.table(WCCond,stringsAsFactors=F, sep="\t",header=T,quote="\"")[[1]]
 	}	
+if(length(Cond) != dim(Mat)[2]) {"Stop: number of cells are not matching to Condition file"}
 }
 
 
-if(length(Cond) != dim(Mat)[2]) {"Stop: number of cells are not matching to Condition file"}
 if(RunWaveCrest) {GeneL = as.factor(GeneL);condition = as.factor(Cond);print(str(GeneL));print(str(condition))}
 
 sc="none"
