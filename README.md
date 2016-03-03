@@ -19,6 +19,10 @@ Rscript HC.R PCA_example.csv T T T 5 T F HCout.pdf NULL NULL F 3 10 15 8
 
 or (To see heatmap by WaveCrestENI recovered cell order)
 
+Rscript HC.R WC_example.csv T F T 5 T T HCout.pdf NULL NULL
+
+or (To see heatmap by WaveCrestENI recovered cell order)
+
 Rscript HC.R WC_example.csv T F T 5 T T HCout.pdf GeneList.csv Condition.csv 
 
 or (To see heatmap by WaveCrestENI recovered cell order)
@@ -39,13 +43,13 @@ The inputs for the code are:
   
 -  [Need normalization or not] If T is specified, median-by-ratio normalization will be performed prior to PCA analysis
   
--  [Whether plot heatmap by reordered cells by WaveCrestENI] If T is specified, WaveCrestENI will be performed prior
+-  [Whether plot heatmap by reordered cells by WaveCrestENI] If T is specified, WaveCrestENI will be performed prior. If F is specified Condition.csv and MarkerList.csv files will be ignored
 
 -  [OutputName] Need to be XX.pdf. The pdf width and height will be automatically adjusted based on # genes and # samples
 
--  [FileNameIn] can take .csv, .txt or .tab for WaveCrestENI (list of key markers) 
+-  [FileNameIn] can take .csv, .txt or .tab for WaveCrestENI (list of key markers) .  If NULL and RunWaveCrest =T ,all genes will be used for WaveCrestENI.
   
--  [FileNameIn] can take .csv, .txt or .tab for WaveCrestENI (condition of cells)
+-  [FileNameIn] can take .csv, .txt or .tab for WaveCrestENI (condition of cells). If NULL and RunWaveCrest=T,. all cells will be considered as single condition.
 
 -  [X11 activation] Default is T. If it is specified as F, X11 will be disactived
 
@@ -53,7 +57,6 @@ The inputs for the code are:
   
 -  [pdf height] [pdf width] Two numbers to define pdf height and width. Default height is #rows/5; default width is #column/4.
 
-.
 
 
 If the last input is specified, the heatmap will be output as a pdf file.
