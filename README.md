@@ -43,7 +43,7 @@ The inputs for the code are:
   
 -  [Need normalization or not] If T is specified, median-by-ratio normalization will be performed prior to PCA analysis
   
--  [Whether plot heatmap by reordered cells by WaveCrestENI] If T is specified, WaveCrestENI will be performed prior. If F is specified Condition.csv and MarkerList.csv files will be ignored
+-  [Whether run WaveCrest or not (RunWaveCrest)] If T is specified, WaveCrestENI will be performed prior and will plot heatmap by WaveCrestENI recovered cell order. If F is specified, regular heatmap will be provided, and both Condition.csv and markerList.csv files will be ignored
 
 -  [OutputName] Need to be XX.pdf. The pdf width and height will be automatically adjusted based on # genes and # samples
 
