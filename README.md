@@ -24,12 +24,10 @@ Rscript HC.R WC_example.csv T F T 5 T T Out.pdf NULL NULL
 or (To see heatmap by WaveCrestENI recovered cell order)
 
 Rscript HC.R WC_example.csv T F T 5 T T Out.pdf GeneList.csv Condition.csv
-Rscript HC.R WC_example.txt T F T 5 T T Out.pdf GeneList.txt Condition.txt
 
 or (To see heatmap by WaveCrestENI recovered cell order)
 
 Rscript HC.R WC_example.csv T F T 5 T T Out.pdf GeneList.csv Condition.csv T 3 10 15 8
-Rscript HC.R WC_example.txt T F T 5 T T Out.pdf GeneList.txt Condition.txt T 3 10 15 8
 
 The inputs for the code are:
 
