@@ -15,7 +15,7 @@ Rscript HC.R PCA_example.csv T T T 5 T F Out.pdf NULL NULL F
 
 or
 
-Rscript HC.R PCA_example.csv T T T 5 T F Out.pdf NULL NULL F 3 10 15 8 
+Rscript HC.R PCA_example.csv T T T 5 T F Out.pdf NULL NULL F 3 10 15 8 T
 
 or (To see heatmap by WaveCrestENI recovered cell order)
 
@@ -27,7 +27,7 @@ Rscript HC.R WC_example.csv T F T 5 T T Out.pdf GeneList.csv Condition.csv
 
 or (To see heatmap by WaveCrestENI recovered cell order)
 
-Rscript HC.R WC_example.csv T F T 5 T T Out.pdf GeneList.csv Condition.csv T 3 10 15 8
+Rscript HC.R WC_example.csv T F T 5 T T Out.pdf GeneList.csv Condition.csv T 3 10 15 8 T
 
 The inputs for the code are:
 
@@ -57,9 +57,10 @@ The inputs for the code are:
   
 -  [pdf height] [pdf width] Two numbers to define pdf height and width. Default height is #rows/5; default width is #column/4.
 
+-  [color] Heatmap color scheme. Default is yellow and purple. If T, green and red will be applied. 
 
 
 If the last input is specified, the heatmap will be output as a pdf file.
 Otherwise it will be shown in console.
-green-red color scheme is used.
+yellow-green color scheme is used as default.
 
