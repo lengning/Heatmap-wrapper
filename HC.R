@@ -6,6 +6,7 @@
 # [pdf height] [pdf width]
 
 library(gplots)
+library(grDevices)
 options=commandArgs(trailingOnly = TRUE)
 print(options)
 File=options[1] # file name
@@ -24,6 +25,7 @@ Margin1=as.numeric(options[12]) # margin - bottom
 Margin2=as.numeric(options[13]) # margin - right
 Height=as.numeric(options[14]) # pdf height
 Width=as.numeric(options[15]) # pdf width
+Color= options[16]
 
 if(length(options) >9){ 
 if(WCGeneList=="NULL") {WCGeneList=NULL}
@@ -36,7 +38,8 @@ if(length(options)<12) Margin1=7
 if(length(options)<13) Margin2=7
 if(length(options)<14) Height=NULL
 if(length(options)<15) Width=NULL
-
+if(length(options)<16) Color="F"
+	
 if(RunWaveCrest) Colhc=FALSE	
 if(!RunWaveCrest) {WCGeneList=WCCond=NULL}
 
@@ -127,10 +130,13 @@ if(RunWaveCrest){
 	Mat = Mat[,ENIRes]
 } 
 
+yellowpurple <- colorRampPalette(c("yellow", "black", "purple"))(156)
+if(Color=="T") yellowpurple=greenred
+
 if(!is.null(Out))pdf(Out,width=Width,height=Height)
 if(Plot=="T" | (!is.null(Out)))tmp=heatmap.2(Mat,trace="none",Rowv=Rowhc,
 			Colv=Colhc,scale=sc,keysize=max(4/Nrow,.5),
-				col=greenred,margins=c(Margin1,Margin2))
+				col=yellowpurple,margins=c(Margin1,Margin2))
 if(!is.null(Out))dev.off()
 
 if(is.null(Out) & Plot=="T")Sys.sleep(1e30)
